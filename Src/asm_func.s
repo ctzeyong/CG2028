@@ -42,12 +42,37 @@ asm_func:
 
 SUM_LOOP:
 	@ Add up values in entry
-	LDR R6, [R2], #4
-	ADD R5, R5, R6
-	SUB R4, R4, #1
+	LDR R6, [R1], #4
+	ADD R5, R6
 
-	CMP R4, #0
+	SUBS R4, R4, #1
 	BNE SUM_LOOP
+
+	@ Set new count value (for second loop)
+	LDR R4, [R3]
+	LDR R6, [R3, #4]
+	MUL R4, R6
+
+COM_LOOP:
+	LDR R6, [R0], #4
+	LDR R9, [R2], #4
+
+	ADD R8, R6, R5
+
+	@ Adjust result values based on current sum
+	CMP R8, #11
+
+	ITTEE GT
+		MOVGT R6, #12
+		SUBGT R5, R8, #12
+		MOVLE R6, R8
+		MOVLE R5, #0
+
+	SUB R6, R6, R9
+	STR R6, [R3], #4
+
+	SUBS R4, #1
+	BNE COM_LOOP
 
 	BX LR
 
