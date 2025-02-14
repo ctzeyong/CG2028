@@ -24,16 +24,30 @@
 
 @ R0 ...
 @ R1 ...
-@ ...
+@ R4 counter (for loops)
+@ R5 sum register (to store sum of entry vehicles)
 
 @ write your program from here:
 
 asm_func:
- 	PUSH {R14}
+ 	@ PUSH {R14}
 
-	BL SUBROUTINE
+	@ BL SUBROUTINE
 
- 	POP {R14}
+ 	@ POP {R14}
+
+	@ Init count and sum registers
+	MOV R4, #5
+	MOV R5, #0
+
+SUM_LOOP:
+	@ Add up values in entry
+	LDR R6, [R2], #4
+	ADD R5, R5, R6
+	SUB R4, R4, #1
+
+	CMP R4, #0
+	BNE SUM_LOOP
 
 	BX LR
 
