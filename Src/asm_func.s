@@ -17,8 +17,8 @@
 @ CG/[T]EE2028 Assignment 1, Sem 2, AY 2024/25
 @ (c) ECE NUS, 2025
 
-@ Write Student 1’s Name here:
-@ Write Student 2’s Name here:
+@ Write Student 1’s Name here: Cheng Tze Yong
+@ Write Student 2’s Name here: Goh Eng Hui, Jeremy
 
 @ Look-up table for registers:
 
