@@ -18,25 +18,62 @@
 @ (c) ECE NUS, 2025
 
 @ Write Student 1’s Name here: Cheng Tze Yong
-@ Write Student 2’s Name here: Goh Eng Hui, Jeremy
+@ Write Student 2’s Name here: Goh Eng Hui, Jeremy (A0272786M)
 
 @ Look-up table for registers:
 
-@ R0 ...
-@ R1 ...
-@ ...
+@ R0 building array
+@ R1 entry array
+@ R2 exit array
+@ R3 result array
+@ R4 counter (for loops)
+@ R5 sum register (to store sum of entry vehicles)
+@ R6 value register (to hold values loaded from entry in SUM_LOOP, or from building in COM_LOOP)
+@ R8 result register (holds values to be stored in result array)
+@ R9 exit value register (holds values loaded from exit array)
 
 @ write your program from here:
 
 asm_func:
- 	PUSH {R14}
+	@ Init count and sum registers
+	MOV R4, #5
+	MOV R5, #0
 
-	BL SUBROUTINE
+SUM_LOOP:
+	@ Add up values in entry
+	LDR R6, [R1], #4
+	ADD R5, R6
 
- 	POP {R14}
+	SUBS R4, #1
+	BNE SUM_LOOP
 
-	BX LR
+	@ Set new count value (for second loop)
+	LDR R4, [R3]
+	LDR R6, [R3, #4]
+	MUL R4, R6
 
-SUBROUTINE:
+COM_LOOP:
+	@ Load values at current index from building and exit arrays
+	LDR R6, [R0], #4
+	LDR R9, [R2], #4
+
+	@ Add current section car count to sum to get current sum
+	ADD R8, R6, R5
+
+	@ Adjust result values based on current sum
+	CMP R8, #11
+
+	ITTEE GT
+		MOVGT R6, #12
+		SUBGT R5, R8, #12
+		MOVLE R6, R8
+		MOVLE R5, #0
+
+	@ Subtract exit value and load resultant value into result array
+	SUB R6, R9
+	STR R6, [R3], #4
+
+	SUBS R4, #1
+	BNE COM_LOOP
 
 	BX LR
