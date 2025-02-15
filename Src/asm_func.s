@@ -44,7 +44,7 @@ SUM_LOOP:
 	LDR R6, [R1], #4
 	ADD R5, R6
 
-	SUBS R4, R4, #1
+	SUBS R4, #1
 	BNE SUM_LOOP
 
 	@ Set new count value (for second loop)
@@ -53,9 +53,11 @@ SUM_LOOP:
 	MUL R4, R6
 
 COM_LOOP:
+	@ Load values at current index from building and exit arrays
 	LDR R6, [R0], #4
 	LDR R9, [R2], #4
 
+	@ Add current section car count to sum to get current sum
 	ADD R8, R6, R5
 
 	@ Adjust result values based on current sum
@@ -67,7 +69,8 @@ COM_LOOP:
 		MOVLE R6, R8
 		MOVLE R5, #0
 
-	SUB R6, R6, R9
+	@ Subtract exit value and load resultant value into result array
+	SUB R6, R9
 	STR R6, [R3], #4
 
 	SUBS R4, #1
