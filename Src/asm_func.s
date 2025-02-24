@@ -17,7 +17,7 @@
 @ CG/[T]EE2028 Assignment 1, Sem 2, AY 2024/25
 @ (c) ECE NUS, 2025
 
-@ Write Student 1’s Name here: Cheng Tze Yong
+@ Write Student 1’s Name here: Cheng Tze Yong (A0272343J)
 @ Write Student 2’s Name here: Goh Eng Hui, Jeremy (A0272786M)
 
 @ Look-up table for registers:
@@ -34,9 +34,12 @@
 
 @ write your program from here:
 
+	.EQU SECTION_MAX, 12 @ Change this number to change capacity of each section
+	.EQU CAR_ENTRY_ARRAY_SIZE, 5 @ Change this number to change size of array
+
 asm_func:
 	@ Init count and sum registers
-	MOV R4, #5
+	MOV R4, #CAR_ENTRY_ARRAY_SIZE
 	MOV R5, #0
 
 SUM_LOOP:
@@ -61,11 +64,11 @@ COM_LOOP:
 	ADD R8, R6, R5
 
 	@ Adjust result values based on current sum
-	CMP R8, #11
+	CMP R8, #(SECTION_MAX - 1)
 
 	ITTEE GT
-		MOVGT R6, #12
-		SUBGT R5, R8, #12
+		MOVGT R6, #SECTION_MAX
+		SUBGT R5, R8, #SECTION_MAX
 		MOVLE R6, R8
 		MOVLE R5, #0
 
