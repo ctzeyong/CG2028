@@ -34,7 +34,7 @@
 
 @ write your program from here:
 
-	.EQU SECTION_MAX, 12
+	.EQU SECTION_MAX, 12 @ Change this number to change capacity of each section
 
 asm_func:
 	@ Init count and sum registers
