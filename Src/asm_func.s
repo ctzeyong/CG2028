@@ -34,7 +34,7 @@
 
 @ write your program from here:
 
-SECTION_MAX .equ 12
+	.EQU SECTION_MAX, 12
 
 asm_func:
 	@ Init count and sum registers

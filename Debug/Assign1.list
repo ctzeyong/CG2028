@@ -80,7 +80,7 @@ Disassembly of section .text:
 
 080001d0 <asm_func>:
 
-
+	.EQU SECTION_MAX, 12
 
 asm_func:
 	@ Init count and sum registers
@@ -125,14 +125,14 @@ COM_LOOP:
  80001f2:	eb06 0805 	add.w	r8, r6, r5
 
 	@ Adjust result values based on current sum
-	CMP R8, #11
+	CMP R8, #(SECTION_MAX - 1)
  80001f6:	f1b8 0f0b 	cmp.w	r8, #11
 
 	ITTEE GT
  80001fa:	bfc7      	ittee	gt
-		MOVGT R6, #12
+		MOVGT R6, #SECTION_MAX
  80001fc:	260c      	movgt	r6, #12
-		SUBGT R5, R8, #12
+		SUBGT R5, R8, #SECTION_MAX
  80001fe:	f1a8 050c 	subgt.w	r5, r8, #12
 		MOVLE R6, R8
  8000202:	4646      	movle	r6, r8
