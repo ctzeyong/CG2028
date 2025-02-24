@@ -35,10 +35,11 @@
 @ write your program from here:
 
 	.EQU SECTION_MAX, 12 @ Change this number to change capacity of each section
+	.EQU CAR_ENTRY_ARRAY_SIZE, 5 @ Change this number to change size of array
 
 asm_func:
 	@ Init count and sum registers
-	MOV R4, #5
+	MOV R4, #CAR_ENTRY_ARRAY_SIZE
 	MOV R5, #0
 
 SUM_LOOP:
